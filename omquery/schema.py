@@ -53,7 +53,7 @@ class CreateEnbOM(graphene.Mutation):
     @staticmethod
     def mutate(root, info, input=None):
         ok = True
-        enb_obj = EnbOM(enb=input.enbid, dict_keys=input.key, om10= input.om10, om11= input.om11, om12= input.om12)
+        enb_obj = EnbOM(enb=input.enbid, key=input.key, om10= input.om10, om11= input.om11, om12= input.om12)
         enb_obj.save()
         
         return CreateEnbOM(ok= ok, enb = enb_obj)
