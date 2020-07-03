@@ -24,7 +24,7 @@ $python manage.py startapp omquery
 $python manage.py runserver 
 ```
 
-###### To test Django project is running fine open the browser and end the url
+###### To test Django project is running fine, open the browser and enter this url
 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 #### Insert somedata either using manage.py loaddata <datafile> or using the shell like below
 ```sh
@@ -36,7 +36,7 @@ $EnbOM.objects.create(enb=1002, key='1002/21/11', om10=34.34, om11=34.45, om12=6
 $EnbOM.objects.create(enb=1003, key='1003/22/12', om10=4, om11=67.90908, om12=10)
 $EnbOM.objects.create(enb=1004, key='1004/23/13', om10=43254.78, om11=34.45, om12=2)
 $EnbOM.objects.create(enb=1005, key='1005/24/14', om10=456.67, om11=34.45, om12=1)
-$
+
 $CellOM.objects.create(cellid=20, key='1001/cell/20', om1=343, om2=45, om3=454.6778, om4=3.0001, om5=34, enbom=EnbOM.objects.get(enb=1001))
 $CellOM.objects.create(cellid=21,key='1001/cell/21', om1=4565, om2=50, om3=67.65544, om4=7.0001, om5=30, enbom=EnbOM.objects.get(enb=1001))
 $CellOM.objects.create(cellid=22,key='1003/cell/22', om1=343, om2=45, om3=454.6778, om4=3989.0001, om5=23, enbom=EnbOM.objects.get(enb=1003))
@@ -125,7 +125,7 @@ mutation createEnbom{
     "createEnbom": {
       "ok": true,
       "enb": {
-        "enb": 1007,
+        "enb": 1006,
         "key": "1006/34/45"
       }
     }
