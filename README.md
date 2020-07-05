@@ -2,12 +2,12 @@
 
 This Code explains how GraphQL works wiht graphene-Django module
 
-### Prerquisites
+### Prerequisites
 - python3
 - Django>=3.0.7
 - graphene>=2.1.8
 
-### code setup using VSCode in Windows
+### Code setup using VSCode in Windows
 ```sh
 $cd workdir/
 $mkdir medgraphql
@@ -24,9 +24,9 @@ $python manage.py startapp omquery
 $python manage.py runserver 
 ```
 
-###### To test Django project is running fine, open the browser and enter this url
+###### Test Django project, open the browser and enter this url
 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-#### Insert somedata either using manage.py loaddata <datafile> or using the shell like below
+#### Insert somedata either using `python manage.py loaddata <datafile>` or using the shell like below
 ```sh
 $python manage.py shell
 $from omquery.models import CellOM, EnbOM
