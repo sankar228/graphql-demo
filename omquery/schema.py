@@ -1,10 +1,18 @@
 import graphene
+import graphene.relay as relay
+from graphene_django.filter.fields import DjangoFilterConnectionField
 
 from graphene_django.types import DjangoObjectType, ObjectType
-from omquery.models import EnbOM, CellOM
+from omquery.models import EnbOM, CellOM, NimsTmus
 import decimal
 
 #Query
+class NimsTmusType(DjangoObjectType):
+    class Meta:
+        model = NimsTmus
+        filter_fields = ['technology', 'site_name', 'vendor', 'cellname', 'oss_market']
+        interfaces = (relay.Node,)
+        
 class CellOMType(DjangoObjectType):
     class Meta:
         model = CellOM
@@ -15,17 +23,13 @@ class EnbOMType(DjangoObjectType):
         
 #Query
 class Query(graphene.ObjectType):        
-    celloms = graphene.Field(CellOMType, cellid=graphene.Int())
-    def resolve_celloms(self, info, **kwargs):
-        cellid = kwargs.get('cellid')
-        if cellid is not None:
-            return CellOM.objects.get(cellid=cellid)   
-        
-    enboms = graphene.Field(EnbOMType, enb=graphene.Int())  
-    def resolve_enboms(self, info, **kwargs):
-        enb = kwargs.get('enb')
-        if enb is not None:
-            return EnbOM.objects.get(enb=enb)
+    ##Query all the records from the DB
+    all_nims = graphene.List(NimsTmusType)
+    def resolve_all_nims(self, info, **kwargs):
+        return NimsTmus.objects.all()
+    
+    ##Connect to Relay Node to apply filter filds and pagination
+    all_nimsrecs = DjangoFilterConnectionField(NimsTmusType)
     
     all_celloms = graphene.List(CellOMType)
     def resolve_all_celloms(self, info, **kwargs):
@@ -34,6 +38,20 @@ class Query(graphene.ObjectType):
     all_enboms = graphene.List(EnbOMType)
     def resolve_all_enboms(self, info, **kwargs):
         return EnbOM.objects.all()
+    
+    cellom = graphene.Field(CellOMType, cellid=graphene.Int())
+    def resolve_cellom(self, info, **kwargs):
+        cellid = kwargs.get('cellid')
+        if cellid is not None:
+            return CellOM.objects.get(cellid=cellid)
+        
+    enbom = graphene.Field(EnbOMType, enb=graphene.Int())  
+    def resolve_enbom(self, info, **kwargs):
+        enb = kwargs.get('enb')
+        if enb is not None:
+            return EnbOM.objects.get(enb=enb)
+    
+    
 
 #Mutations
 class EnbOMInput(graphene.InputObjectType):
